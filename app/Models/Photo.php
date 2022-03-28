@@ -76,7 +76,7 @@ class Photo extends Model
      */
     public function getUrlAttribute()
     {
-        return Storage::url('photos/' . $this->attributes['filename']); // ★変更
+        return Storage::url('./photos/' . $this->attributes['filename']); // ★変更
     }
 
     /**
