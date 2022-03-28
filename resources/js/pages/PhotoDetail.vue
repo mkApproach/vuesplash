@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     async fetchPhoto () {
-      const response = await axios.get('./api/photos/${this.id}')
+      const response = await axios.get(`./api/photos/${this.id}`)
       console.log('OKですよ..thank you!!!');
       console.log(response.status);
       if (response.status !== OK) {
