@@ -107,6 +107,19 @@ class PhotoController extends Controller
     }
 
     /**
+    * jsonで写真詳細を返す
+    * @param string $id
+    * @return Photo
+    */
+    public function json(string $id)
+    {
+        $photo = Photo::where('id', $id)
+        ->with(['owner', 'comments.author', 'likes'])->first();
+
+        return $photo->toJson() ?? abort(404);
+    }
+
+    /**
      * コメント投稿
      * @param Photo $photo
      * @param StoreComment $request
