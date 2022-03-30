@@ -14,7 +14,7 @@ use Illuminate\Database\Seeder;
 
 class PhotoListApiTest extends TestCase
 {
-    use RefreshDatabase;
+//    use RefreshDatabase;
 
     /**
      * @test

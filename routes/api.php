@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/json',function (Request $request) {
+	
+	$users = App\Models\Photo::all();
+	
+	return response()->json(['users' => $users]);
+
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
 
 // 会員登録
 Route::post('/register', 'Auth\RegisterController@register')->name('register');

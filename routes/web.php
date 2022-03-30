@@ -17,7 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+/*
+Route::get('/{any}', function () {
+    return view('welcome');
+})->where('any','.*');
+*/
+
+
 Auth::routes();
+
+// ログイン
+//Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 // APIのURL以外のリクエストに対してはindexテンプレートを返す
 // 画面遷移はフロントエンドのVueRouterが制御する

@@ -1,8 +1,12 @@
+//require('./bootstrap'); // ???
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // ページコンポーネントをインポートする
 import PhotoList from './pages/PhotoList.vue'
+import Loop from './pages/Loop.vue'
+import LoopJson from './pages/LoopJson.vue'
 import PhotoDetail from './pages/PhotoDetail.vue'
 import Login from './pages/Login.vue'
 import SystemError from './pages/errors/System.vue'
@@ -19,7 +23,7 @@ const routes = [
   {
     path: '/json',
     name: 'json',
-  //??  component: User
+    component: User
   },
   {
     path: '/',
@@ -30,10 +34,25 @@ const routes = [
     }
   },
   {
+    path: '/a',
+    component: Loop
+  },
+  {
+    path: '/b',
+    component: LoopJson
+  },
+  {
     path: '/photos/:id',
     component: PhotoDetail,
     props: true
   },
+  /*
+  {
+    path: '/user',
+    name: 'user',
+    component: User
+  },
+  */
   {
     path: '/login',
     component: Login,
