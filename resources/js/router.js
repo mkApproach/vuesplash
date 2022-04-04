@@ -21,11 +21,13 @@ const routes = [
     name: 'json',
   //??  component: User
   },
+  /*
   {
-    path: '/jsonsel/:id',
+    path: '/jsonsel/:id?',
     name: 'jsonsel',
   //??  component: User
   },
+  */
   {
     path: '/',
     component: PhotoList,
@@ -35,7 +37,7 @@ const routes = [
     }
   },
   {
-    path: '/photos/:id?',
+    path: '/photos/:id',
     component: PhotoDetail,
     props: true
   },

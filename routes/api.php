@@ -22,7 +22,7 @@ Route::get('/json',function (Request $request) {
 	return response()->json(['photos' => $photos]);
 
 });
-
+/*
 Route::get('/jsonsel/{id?}', function (Request $request) {
 	
     $id = $request->id;
@@ -32,7 +32,7 @@ Route::get('/jsonsel/{id?}', function (Request $request) {
 	return response()->json(['photos' => $photos]);
 
 });
-
+*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
