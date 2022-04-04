@@ -27,7 +27,8 @@ Route::get('/jsonsel/{id?}', function (Request $request) {
 	
     $id = $request->id;
 
-	$photos = App\Models\Photo::where('user_id', $id)->get();
+    $photos = App\Models\Photo::where('filename', 'LIKE', '%'.$id.'%')->get();
+//	$photos = App\Models\Photo::where('user_id', $id)->get();
 	
 	return response()->json(['photos' => $photos]);
 
