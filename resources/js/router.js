@@ -22,6 +22,11 @@ const routes = [
   //??  component: User
   },
   {
+    path: '/jsonsel/:id',
+    name: 'jsonsel',
+  //??  component: User
+  },
+  {
     path: '/',
     component: PhotoList,
     props: route => {

@@ -17,11 +17,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/json',function (Request $request) {
 	
-	$users = App\Models\Photo::all();
+	$photos = App\Models\Photo::all();
 	
-	return response()->json(['users' => $users]);
+	return response()->json(['photos' => $photos]);
 
 });
+
+Route::get('/jsonsel/{id}', function (Request $request) {
+	
+    $id = $request->id;
+
+	$photos = App\Models\Photo::where('user_id', $id)->get();
+	
+	return response()->json(['photos' => $photos]);
+
+});
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
