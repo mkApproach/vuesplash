@@ -21,13 +21,11 @@ const routes = [
     name: 'json',
   //??  component: User
   },
-  /*
   {
     path: '/jsonsel/:id?',
     name: 'jsonsel',
   //??  component: User
   },
-  */
   {
     path: '/',
     component: PhotoList,
