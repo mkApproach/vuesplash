@@ -23,7 +23,7 @@ Route::get('/json',function (Request $request) {
 
 });
 
-Route::get('/jsonsel/{id}', function (Request $request) {
+Route::get('/jsonsel/{id?}', function (Request $request) {
 	
     $id = $request->id;
 

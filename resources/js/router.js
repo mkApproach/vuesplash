@@ -35,7 +35,7 @@ const routes = [
     }
   },
   {
-    path: '/photos/:id',
+    path: '/photos/:id?',
     component: PhotoDetail,
     props: true
   },
