@@ -21,9 +21,19 @@
       <output class="form__output" v-if="preview">
         <img :src="preview" alt="">
       </output>
-      <div class="form__button">
-        <button type="submit" class="button button--inverse">投稿する</button>
-      </div>
+
+      <table class="form-out">
+        <tr>
+        <td><label for="write-name">書込ファイル名</label></td>
+        <td><input type="text" size="38" class="form__item" id="write-name" v-model="writeForm.file_name"></td>
+        <td>
+        <div class="form__button">
+            <button type="submit" class="button button--inverse">投稿する</button>
+        </div>
+        </td>
+        </tr>
+      </table>
+
     </form>
   </div>
 </template>
@@ -46,7 +56,10 @@ export default {
       loading: false,
       preview: null,
       photo: null,
-      errors: null
+      errors: null,
+      writeForm: {
+        file_name: '',
+      },
     }
   },
   methods: {
@@ -76,17 +89,34 @@ export default {
       // 読み込まれたファイルはデータURL形式で受け取れる（上記onload参照）
       reader.readAsDataURL(event.target.files[0])
       this.photo = event.target.files[0]
+
+      this.writeForm.file_name = this.photo.name
+
     },
     // 入力欄の値とプレビュー表示をクリアするメソッド
     reset () {
       this.preview = ''
       this.photo = null
       this.$el.querySelector('input[type="file"]').value = null
+      this.writeForm.file_name = ''
     },
     async submit () {
       this.loading = true
+
       const formData = new FormData()
       formData.append('photo', this.photo)
+  
+      if (this.writeForm.file_name !== '') {
+            console.log('Hello')
+  //          console.log(this.writeForm.file_name)
+  //          console.log(this.photo)
+  //
+  //      formData.append('photo', this.photo)
+  //      this.photo.name = this.writeForm.file_name
+          
+          formData.append('fphoto', this.writeForm.file_name)
+
+      }
       const response = await axios.post('./api/photos', formData)
       this.loading = false
       if (response.status === UNPROCESSABLE_ENTITY) {
@@ -104,6 +134,7 @@ export default {
         content: '写真が投稿されました！',
         timeout: 6000
       })
+      //??? this.$router.push(`./`)
       this.$router.push(`./photos/${response.data.id}`)
     }
   }

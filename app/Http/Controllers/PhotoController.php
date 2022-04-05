@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Comment;
 use App\Http\Requests\StoreComment;
 
+use Illuminate\Support\Facades\Log;
+
 class PhotoController extends Controller
 {
     public function __construct()
@@ -27,6 +29,11 @@ class PhotoController extends Controller
      */
     public function create(StorePhoto $request)
     {
+        $file_name = $request->fphoto;
+
+        LOG::debug($file_name);
+        LOG::debug($request->fphoto);
+    
         // 投稿写真の拡張子を取得する
         $extension = $request->photo->extension();
 
@@ -34,8 +41,9 @@ class PhotoController extends Controller
 
         // インスタンス生成時に割り振られたランダムなID値と
         // 本来の拡張子を組み合わせてファイル名とする
-        $photo->filename = $photo->id . '.' . $extension;
-
+        $photo->filename = $file_name;
+        //??? $photo->filename = $photo->id . '.' . $extension;
+        
         // storage/app/public配下に保存する
         //Storage::putFileAs('photos', $photo->filename, 'public');
         $request->photo->storeAs('photos', $photo->filename, 'public');

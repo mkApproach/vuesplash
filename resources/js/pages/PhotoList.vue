@@ -67,7 +67,7 @@ export default {
       }
     },
     async like (id) {
-      const response = await axios.put(`./api/photos/${id}/like`)
+      const response = await axios.put(`./api${id}/like`)
       if (response.status !== OK) {
         this.$store.commit('error/setCode', response.status)
         return false
