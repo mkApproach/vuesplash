@@ -90,6 +90,8 @@ class PhotoController extends Controller
         //if (! Storage::exists($photo->filename)) {
         //    abort(404);
         //}
+    //???    LOG::debug("downloadに来てますよ！");
+    
         $filePath = '/public/photos/' . $photo->filename;
         $mimeType = Storage::mimeType($filePath);
         $disposition = 'attachment; filename="' . $photo->filename . '"';
@@ -140,6 +142,8 @@ class PhotoController extends Controller
     */
     public function like(string $id)
     {
+        LOG::debug("likeに来てますよ！");
+    
         $photo = Photo::where('id', $id)->with('likes')->first();
 
         if (! $photo) {
@@ -168,5 +172,33 @@ class PhotoController extends Controller
         $photo->likes()->detach(Auth::user()->id);
 
         return ["photo_id" => $id];
+    }
+
+    /**
+    * 写真　削除
+    * @param string $id
+    * @return Photo
+    */
+    public function remove(string $id)
+    {
+        LOG::debug("deleteに来てますよ！");
+
+        $photo = Photo::where('id', $id)->with('likes')->first();
+
+        // データベースエラー時にファイル削除を行うため
+        // トランザクションを利用する
+        DB::beginTransaction();
+
+        try {
+            Photo::where('id', $id)->delete();
+            Storage::disk()->delete($photo->filename);
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            throw $exception;
+        }
+    
+        return $id;
+ 
     }
 }

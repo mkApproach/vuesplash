@@ -15,6 +15,7 @@
         :key="photo.id"
         :item="photo"
         @like="onLikeClick"
+        @remove="onRemoveClick"
       />
     </div>
     <Pagination :current-page="currentPage" :last-page="lastPage" />
@@ -66,8 +67,15 @@ export default {
         this.like(id)
       }
     },
+    onRemoveClick ({ id, liked }) {
+      if (! this.$store.getters['auth/check']) {
+        alert('削除機能を使うにはログインしてください。')
+        return false
+      }
+      this.remove(id)
+    },
     async like (id) {
-      const response = await axios.put(`./api${id}/like`)
+      const response = await axios.put(`./api/photos/${id}/like`)
       if (response.status !== OK) {
         this.$store.commit('error/setCode', response.status)
         return false
@@ -93,7 +101,23 @@ export default {
         }
         return photo
       })
-    }
+    },
+    async remove (id) {
+      const response = await axios.put(`./api/photos/${id}/remove`)
+      if (response.status !== OK) {
+        this.$store.commit('error/setCode', response.status)
+        return false
+      }
+      console.log(id)
+   
+      this.$router.push(`./$`)
+ 
+      // this.photos = this.photos.map(photo => {
+      //   if (photo.id === response.data.photo_id) {
+      //   }
+      // })
+    },
+
   },
   watch: {
     $route: {

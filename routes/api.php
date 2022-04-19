@@ -34,7 +34,6 @@ Route::get('/jsonsel/{id?}', function (Request $request) {
 
 });
 
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -72,8 +71,11 @@ Route::put('/photos/{id}/like', 'PhotoController@like')->name('photo.like');
 // いいね解除
 Route::delete('/photos/{id}/like', 'PhotoController@unlike');
 
+// 削除
+Route::put('/photos/{id}/remove', 'PhotoController@remove')->name('photo.remove');
+
 // トークンリフレッシュ
-Route::get('/reflesh-token', function (Illuminate\Http\Request $request) {
+Route::get('/rlefesh-token', function (Illuminate\Http\Request $request) {
     $request->session()->regenerateToken();
 
     return response()->json();

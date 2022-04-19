@@ -21,6 +21,7 @@
       :title="`View the photo by ${item.owner.name}`"
     >
       <div class="photo__controls">
+
         <button
           class="photo__action photo__action--like"
           :class="{ 'photo__action--liked': item.liked_by_user }"
@@ -29,11 +30,21 @@
         >
           <i class="icon ion-md-heart"></i>{{ item.likes_count }}
         </button>
+        
+        <button
+          class="photo__action photo__action--remove"
+          :class="{ 'photo__action--removed': item.liked_by_user }"
+          title="削除する"
+          @click.prevent="remove"
+        >
+          <i class="icon ion-md-trash"></i>
+        </button>
+        
         <a
           class="photo__action"
           title="Download"
           @click.stop
-          :href="`./photos/${item.id}/download`"
+          :href="`/photos/${item.id}/download`"
         >
           <i class="icon ion-md-arrow-round-down"></i>
         </a>
@@ -59,7 +70,13 @@ export default {
         id: this.item.id,
         liked: this.item.liked_by_user
       })
-    }
+    },
+    remove () {
+      this.$emit('remove', {
+        id: this.item.id,
+        liked: this.item.liked_by_user
+      })
+    },    
   }
 }
 </script>
