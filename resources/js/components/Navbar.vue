@@ -5,7 +5,7 @@
     </RouterLink>
     <div class="navbar__menu">
       <div>
-        <div class="sidebar-select">
+        <div class="item_select">
             <select v-model="selectedKey" v-on:change="selected">
                     <option v-for="(value, key) in items">
                         {{ key }}
@@ -48,23 +48,26 @@ export default {
     return {
       showForm: false,
 
-      selectid: '',
-      selectedKey: '',
-      selectedItem: '',
+      selectedKey: '全て表示',
+      selectedItem: { '全て表示':{ name: '全て' }},
+     
       items: {
+        全て表示: [
+              { name: '全て' },
+          ],
           ユニフォーム: [
-              { name: '野　球' },
-              { name: 'サッカー' },
-              { name: 'フットサル' },
-              { name: 'マラソン' },
-              { name: 'バレーボール' },
+              { id: '2222', name: '野　球' },
+              { id: '2222', name: 'サッカー' },
+              { id: '2222', name: 'フットサル' },
+              { id: '2222', name: 'マラソン' },
+              { id: '2222', name: 'バレーボール' },
           ],
           その他: [
-              { name: 'マスク' },
-              { name: 'タオル' },
-              { name: '抱き枕' },
-              { name: 'クッション' },
-              { name: 'Fit' },
+              { id: '2222', name: 'マスク' },
+              { id: '2222', name: 'タオル' },
+              { id: '2222', name: '抱き枕' },
+              { id: '2222', name: 'クッション' },
+              { id: '2222', name: 'Fit' },
           ],
       }
     }
