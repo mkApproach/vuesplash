@@ -11,6 +11,9 @@
     <div v-show="loading" class="panel">
       <Loader>Sending your photo...</Loader>
     </div>
+
+
+
     <form v-show="! loading" class="form" @submit.prevent="submit">
       <div class="errors" v-if="errors">
         <ul v-if="errors.photo">
@@ -23,15 +26,27 @@
       </output>
 
       <table class="form-out">
+        <div>
         <tr>
         <td><label for="write-name">書込ファイル名</label></td>
         <td><input type="text" size="38" class="form__item" id="write-name" v-model="writeForm.file_name"></td>
-        <td>
+        </tr>
+        
+        <tr>
+        <td><label for="write-name">商　品　名</label></td>
+        <td><input type="text" size="38" class="form__item" id="write-name" v-model="writeForm.productname_j"></td>
+        </tr>
+
+        <tr>
+        <td><label for="write-name">価　 格</label></td>
+        <td><input type="text" size="16" class="form__item" id="write-name" v-model="writeForm.price"></td>
+        </tr>
+
         <div class="form__button">
             <button type="submit" class="button button--inverse">投稿する</button>
         </div>
         </td>
-        </tr>
+        </div>
       </table>
 
     </form>
@@ -47,8 +62,10 @@ export default {
   },
   props: {
     value: {
+
       type: Boolean,
-      required: true
+      required: true,
+
     }
   },
   data () {
@@ -59,12 +76,20 @@ export default {
       errors: null,
       writeForm: {
         file_name: '',
+        productname_j: '',
+        price: 0,
+        selectedMajorid: '',
+        selectedMiddleid: '',
+        selectedSubcategoryid: '',
       },
     }
   },
+
   methods: {
+
     // フォームでファイルが選択されたら実行される
     onFileChange (event) {
+
       // 何も選択されていなかったら処理中断
       if (event.target.files.length === 0) {
         this.reset()
@@ -99,6 +124,11 @@ export default {
       this.photo = null
       this.$el.querySelector('input[type="file"]').value = null
       this.writeForm.file_name = ''
+      this.writeForm.productname_j = ''
+      this.writeForm.price = 0
+      this.selectedMajorid = ''
+      this.selectedMiddleid = ''
+      this.selectedSubcategoryid = ''
     },
     async submit () {
       this.loading = true
@@ -107,14 +137,15 @@ export default {
       formData.append('photo', this.photo)
   
       if (this.writeForm.file_name !== '') {
-            console.log('Hello')
-  //          console.log(this.writeForm.file_name)
-  //          console.log(this.photo)
-  //
-  //      formData.append('photo', this.photo)
-  //      this.photo.name = this.writeForm.file_name
-          
+          this.writeForm.selectedMajorid = this.$store.getters['auth/selectedMajorid']
+          this.writeForm.selectedMiddleid = this.$store.getters['auth/selectedMiddleid']
+          this.writeForm.selectedSubcategoryid = this.$store.getters['auth/selectedSubcategoryid']
           formData.append('fphoto', this.writeForm.file_name)
+          formData.append('jphoto', this.writeForm.productname_j)
+          formData.append('price', this.writeForm.price)
+          formData.append('majorid', this.writeForm.selectedMajorid)
+          formData.append('middleid', this.writeForm.selectedMiddleid)
+          formData.append('subcategoryid', this.writeForm.selectedSubcategoryid)
 
       }
       const response = await axios.post('./api/photos', formData)

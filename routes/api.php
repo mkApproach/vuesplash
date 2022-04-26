@@ -39,7 +39,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+// 大分類一覧
+Route::get('/majorclass', 'MajorClassController@index')->name('majorclass.index');
 
+// 中分類一覧
+Route::get('/middleclass/{id}', 'MiddleClassController@index')->name('middleclass.index');
+
+// 小分類一覧
+Route::get('/subcategoryclass/{id}/{sid}', 'SubcategoryClassController@index')->name('subcategoryclass.index');
 
 // 会員登録
 Route::post('/register', 'Auth\RegisterController@register')->name('register');

@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Auth; // ★ 追記
 class Photo extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'filename',       
+        'major_id',           // 大分類id
+        'middle_id',          // 中分類ID
+        'subcategory_id',     // 小分類ID
+        'productname_j',      // 商品名（日本語）
+        'price' => 0,        // 価格 -2147483647 〜 2147483647 まで
+    ];
+
     /** プライマリキーの型 */
     protected $keyType = 'string';
 

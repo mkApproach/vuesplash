@@ -31,8 +31,9 @@ class PhotoController extends Controller
     {
         $file_name = $request->fphoto;
 
+        LOG::debug('create');
         LOG::debug($file_name);
-        LOG::debug($request->fphoto);
+        LOG::debug($request);
     
         // 投稿写真の拡張子を取得する
         $extension = $request->photo->extension();
@@ -42,6 +43,13 @@ class PhotoController extends Controller
         // インスタンス生成時に割り振られたランダムなID値と
         // 本来の拡張子を組み合わせてファイル名とする
         $photo->filename = $file_name;
+        $photo->major_id = $request->majorid;
+        $photo->middle_id = $request->middleid;
+        $photo->subcategory_id = $request->subcategoryid;
+        $photo->productname_j = $request->jphoto;
+        $photo->price = $request->price;
+
+
         //??? $photo->filename = $photo->id . '.' . $extension;
         
         // storage/app/public配下に保存する
@@ -142,7 +150,7 @@ class PhotoController extends Controller
     */
     public function like(string $id)
     {
-        LOG::debug("likeに来てますよ！");
+//        LOG::debug("likeに来てますよ！");
     
         $photo = Photo::where('id', $id)->with('likes')->first();
 
@@ -181,7 +189,7 @@ class PhotoController extends Controller
     */
     public function remove(string $id)
     {
-        LOG::debug("deleteに来てますよ！");
+//        LOG::debug("deleteに来てますよ！");
 
         $photo = Photo::where('id', $id)->with('likes')->first();
 

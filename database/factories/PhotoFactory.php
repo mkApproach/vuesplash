@@ -18,6 +18,13 @@ class PhotoFactory extends Factory
             'id' => Str::random(12),
             'user_id' => fn() => User::factory()->create()->id,
             'filename' => Str::random(12) . '.jpg',
+            
+            'major_id' => Str::random(10),          // 大分類id
+            'middle_id' => Str::random(10),         // 中分類ID
+            'subcategory_id' => Str::random(10),    // 小分類ID
+            'productname_j' => Str::random(10),     // 商品名（日本語）
+            'price' => 0,                           // 価格 -2147483647 〜 2147483647 まで
+
             'created_at' => $this->faker->dateTime(),
             'updated_at' => $this->faker->dateTime(),
         ];

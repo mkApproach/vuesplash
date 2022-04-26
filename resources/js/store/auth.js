@@ -4,15 +4,30 @@ const state = {
   user: null,
   apiStatus: null,
   loginErrorMessages: null,
-  registerErrorMessages: null
+  registerErrorMessages: null,
+  selectedMajor: null,
+  selectedMiddle: null,
+  selectedSubcategory: null,
 }
 
 const getters = {
   check: state => !! state.user,
-  username: state => state.user ? state.user.name : ''
+  username: state => state.user ? state.user.name : '',
+  selectedMajorid: state => state.selectedMajor,
+  selectedMiddleid: state => state.selectedMiddle,
+  selectedSubcategoryid: state => state.selectedSubcategory
 }
 
 const mutations = {
+  setMajorid(state, id) {
+    state.selectedMajor = id
+  },
+  setMiddleid(state, id) {
+    state.selectedMiddle = id
+  },
+  setSubcategoryid(state, id) {
+    state.selectedSubcategory = id
+  },
   setUser (state, user) {
     state.user = user
   },
@@ -28,6 +43,22 @@ const mutations = {
 }
 
 const actions = {
+  // 大分類
+  async majorchange (context, data) {
+    //    context.commit('setMajorid', null)
+        context.commit('setMajorid', data)
+  },
+  // 中分類
+  async middlechange (context, data) {
+    //    context.commit('setMajorid', null)
+        context.commit('setMiddleid', data)
+  },
+  // 小分類
+  async subcategorychange (context, data) {
+    //    context.commit('setMajorid', null)
+        context.commit('setSubcategoryid', data)
+  },
+      
   // 会員登録
   async register (context, data) {
     context.commit('setApiStatus', null)

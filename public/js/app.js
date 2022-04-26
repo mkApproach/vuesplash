@@ -2304,7 +2304,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _PhotoForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhotoForm.vue */ "./resources/js/components/PhotoForm.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _PhotoForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhotoForm.vue */ "./resources/js/components/PhotoForm.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2348,59 +2365,139 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    PhotoForm: _PhotoForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    PhotoForm: _PhotoForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      showForm: false,
-      selectedKey: '全て表示',
-      selectedItem: {
-        '全て表示': {
-          name: '全て'
-        }
-      },
-      items: {
-        全て表示: [{
-          name: '全て'
-        }],
-        ユニフォーム: [{
-          id: '2222',
-          name: '野　球'
-        }, {
-          id: '2222',
-          name: 'サッカー'
-        }, {
-          id: '2222',
-          name: 'フットサル'
-        }, {
-          id: '2222',
-          name: 'マラソン'
-        }, {
-          id: '2222',
-          name: 'バレーボール'
-        }],
-        その他: [{
-          id: '2222',
-          name: 'マスク'
-        }, {
-          id: '2222',
-          name: 'タオル'
-        }, {
-          id: '2222',
-          name: '抱き枕'
-        }, {
-          id: '2222',
-          name: 'クッション'
-        }, {
-          id: '2222',
-          name: 'Fit'
-        }]
-      }
+      selectMajors: [],
+      selectMiddles: [],
+      selectSubcategorys: [],
+      selectedMajor: '',
+      selectedMiddle: '',
+      selectedSubcategory: '',
+      showForm: false
     };
   },
   methods: {
-    selected: function selected() {
-      this.selectedItem = this.items[this.selectedKey];
+    select_change_major: function select_change_major() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch('auth/majorchange', _this.selectedMajor);
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    select_change_middle: function select_change_middle() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$store.dispatch('auth/middlechange', _this2.selectedMiddle);
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    select_change_subcategory: function select_change_subcategory() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$store.dispatch('auth/subcategorychange', _this3.selectedSubcategory);
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    ajaxGetMajorList: function ajaxGetMajorList() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios.get("./api/majorclass").then(function (res) {
+                  _this4.selectMajors = res.data;
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    ajaxGetMiddleList: function ajaxGetMiddleList() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return axios.get("./api/middleclass/".concat(_this5.selectedMajor)).then(function (res) {
+                  _this5.selectMiddles = res.data;
+                });
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    ajaxGetSubcategoryList: function ajaxGetSubcategoryList() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return axios.get("./api/subcategoryclass/".concat(_this6.selectedMajor, "/").concat(_this6.selectedMiddle)).then(function (res) {
+                  _this6.selectSubcategorys = res.data;
+                });
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
     }
   },
   computed: {
@@ -2409,6 +2506,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     username: function username() {
       return this.$store.getters['auth/username'];
+    }
+  },
+  mounted: function mounted() {
+    this.ajaxGetMajorList();
+  },
+  watch: {
+    selectedMajor: function selectedMajor() {
+      this.ajaxGetMiddleList();
+    },
+    selectedMiddle: function selectedMiddle() {
+      this.ajaxGetSubcategoryList();
     }
   }
 });
@@ -2619,6 +2727,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2638,7 +2761,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       photo: null,
       errors: null,
       writeForm: {
-        file_name: ''
+        file_name: '',
+        productname_j: '',
+        price: 0,
+        selectedMajorid: '',
+        selectedMiddleid: '',
+        selectedSubcategoryid: ''
       }
     };
   },
@@ -2682,6 +2810,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.photo = null;
       this.$el.querySelector('input[type="file"]').value = null;
       this.writeForm.file_name = '';
+      this.writeForm.productname_j = '';
+      this.writeForm.price = 0;
+      this.selectedMajorid = '';
+      this.selectedMiddleid = '';
+      this.selectedSubcategoryid = '';
     },
     submit: function submit() {
       var _this2 = this;
@@ -2697,13 +2830,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formData.append('photo', _this2.photo);
 
                 if (_this2.writeForm.file_name !== '') {
-                  console.log('Hello'); //          console.log(this.writeForm.file_name)
-                  //          console.log(this.photo)
-                  //
-                  //      formData.append('photo', this.photo)
-                  //      this.photo.name = this.writeForm.file_name
-
+                  _this2.writeForm.selectedMajorid = _this2.$store.getters['auth/selectedMajorid'];
+                  _this2.writeForm.selectedMiddleid = _this2.$store.getters['auth/selectedMiddleid'];
+                  _this2.writeForm.selectedSubcategoryid = _this2.$store.getters['auth/selectedSubcategoryid'];
                   formData.append('fphoto', _this2.writeForm.file_name);
+                  formData.append('jphoto', _this2.writeForm.productname_j);
+                  formData.append('price', _this2.writeForm.price);
+                  formData.append('majorid', _this2.writeForm.selectedMajorid);
+                  formData.append('middleid', _this2.writeForm.selectedMiddleid);
+                  formData.append('subcategoryid', _this2.writeForm.selectedSubcategoryid);
                 }
 
                 _context.next = 6;
@@ -3823,7 +3958,10 @@ var state = {
   user: null,
   apiStatus: null,
   loginErrorMessages: null,
-  registerErrorMessages: null
+  registerErrorMessages: null,
+  selectedMajor: null,
+  selectedMiddle: null,
+  selectedSubcategory: null
 };
 var getters = {
   check: function check(state) {
@@ -3831,9 +3969,27 @@ var getters = {
   },
   username: function username(state) {
     return state.user ? state.user.name : '';
+  },
+  selectedMajorid: function selectedMajorid(state) {
+    return state.selectedMajor;
+  },
+  selectedMiddleid: function selectedMiddleid(state) {
+    return state.selectedMiddle;
+  },
+  selectedSubcategoryid: function selectedSubcategoryid(state) {
+    return state.selectedSubcategory;
   }
 };
 var mutations = {
+  setMajorid: function setMajorid(state, id) {
+    state.selectedMajor = id;
+  },
+  setMiddleid: function setMiddleid(state, id) {
+    state.selectedMiddle = id;
+  },
+  setSubcategoryid: function setSubcategoryid(state, id) {
+    state.selectedSubcategory = id;
+  },
   setUser: function setUser(state, user) {
     state.user = user;
   },
@@ -3848,29 +4004,83 @@ var mutations = {
   }
 };
 var actions = {
-  // 会員登録
-  register: function register(context, data) {
+  // 大分類
+  majorchange: function majorchange(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              //    context.commit('setMajorid', null)
+              context.commit('setMajorid', data);
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  // 中分類
+  middlechange: function middlechange(context, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              //    context.commit('setMajorid', null)
+              context.commit('setMiddleid', data);
+
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  // 小分類
+  subcategorychange: function subcategorychange(context, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              //    context.commit('setMajorid', null)
+              context.commit('setSubcategoryid', data);
+
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+  // 会員登録
+  register: function register(context, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
               context.commit('setApiStatus', null);
-              _context.next = 3;
+              _context4.next = 3;
               return axios.post('./api/register', data);
 
             case 3:
-              response = _context.sent;
+              response = _context4.sent;
 
               if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.CREATED)) {
-                _context.next = 8;
+                _context4.next = 8;
                 break;
               }
 
               context.commit('setApiStatus', true);
               context.commit('setUser', response.data);
-              return _context.abrupt("return", false);
+              return _context4.abrupt("return", false);
 
             case 8:
               context.commit('setApiStatus', false);
@@ -3885,35 +4095,35 @@ var actions = {
 
             case 10:
             case "end":
-              return _context.stop();
+              return _context4.stop();
           }
         }
-      }, _callee);
+      }, _callee4);
     }))();
   },
   // ログイン
   login: function login(context, data) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
       var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               context.commit('setApiStatus', null);
-              _context2.next = 3;
+              _context5.next = 3;
               return axios.post('./api/login', data);
 
             case 3:
-              response = _context2.sent;
+              response = _context5.sent;
 
               if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.OK)) {
-                _context2.next = 8;
+                _context5.next = 8;
                 break;
               }
 
               context.commit('setApiStatus', true);
               context.commit('setUser', response.data);
-              return _context2.abrupt("return", false);
+              return _context5.abrupt("return", false);
 
             case 8:
               context.commit('setApiStatus', false);
@@ -3928,35 +4138,35 @@ var actions = {
 
             case 10:
             case "end":
-              return _context2.stop();
+              return _context5.stop();
           }
         }
-      }, _callee2);
+      }, _callee5);
     }))();
   },
   // ログアウト
   logout: function logout(context) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
       var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
               context.commit('setApiStatus', null);
-              _context3.next = 3;
+              _context6.next = 3;
               return axios.post('./api/logout');
 
             case 3:
-              response = _context3.sent;
+              response = _context6.sent;
 
               if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.OK)) {
-                _context3.next = 8;
+                _context6.next = 8;
                 break;
               }
 
               context.commit('setApiStatus', true);
               context.commit('setUser', null);
-              return _context3.abrupt("return", false);
+              return _context6.abrupt("return", false);
 
             case 8:
               context.commit('setApiStatus', false);
@@ -3966,36 +4176,36 @@ var actions = {
 
             case 10:
             case "end":
-              return _context3.stop();
+              return _context6.stop();
           }
         }
-      }, _callee3);
+      }, _callee6);
     }))();
   },
   // ログインユーザーチェック
   currentUser: function currentUser(context) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
       var response, user;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
               context.commit('setApiStatus', null);
-              _context4.next = 3;
+              _context7.next = 3;
               return axios.get('./api/user');
 
             case 3:
-              response = _context4.sent;
+              response = _context7.sent;
               user = response.data || null;
 
               if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.OK)) {
-                _context4.next = 9;
+                _context7.next = 9;
                 break;
               }
 
               context.commit('setApiStatus', true);
               context.commit('setUser', user);
-              return _context4.abrupt("return", false);
+              return _context7.abrupt("return", false);
 
             case 9:
               context.commit('setApiStatus', false);
@@ -4005,10 +4215,10 @@ var actions = {
 
             case 11:
             case "end":
-              return _context4.stop();
+              return _context7.stop();
           }
         }
-      }, _callee4);
+      }, _callee7);
     }))();
   }
 };
@@ -6230,8 +6440,15 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "navbar__menu" }, [
-        _c("div", [
-          _c("div", { staticClass: "item_select" }, [
+        _c(
+          "div",
+          {
+            staticClass: "input-group",
+            staticStyle: { display: "inline-flex" },
+          },
+          [
+            _c("div", { staticClass: "input-group-major" }, [_vm._v("大分類")]),
+            _vm._v(" "),
             _c(
               "select",
               {
@@ -6239,8 +6456,8 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.selectedKey,
-                    expression: "selectedKey",
+                    value: _vm.selectedMajor,
+                    expression: "selectedMajor",
                   },
                 ],
                 on: {
@@ -6254,43 +6471,159 @@ var render = function () {
                           var val = "_value" in o ? o._value : o.value
                           return val
                         })
-                      _vm.selectedKey = $event.target.multiple
+                      _vm.selectedMajor = $event.target.multiple
                         ? $$selectedVal
                         : $$selectedVal[0]
                     },
-                    _vm.selected,
+                    _vm.select_change_major,
                   ],
                 },
               },
-              _vm._l(_vm.items, function (value, key) {
-                return _c("option", [
-                  _vm._v(
-                    "\n                      " +
-                      _vm._s(key) +
-                      "\n                  "
-                  ),
-                ])
-              }),
-              0
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("選択して下さい"),
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.selectMajors, function (item) {
+                  return _c(
+                    "option",
+                    {
+                      key: item.major_id,
+                      attrs: { major: item.major_id },
+                      domProps: { value: item.major_id },
+                    },
+                    [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(item.name) +
+                          "\n            "
+                      ),
+                    ]
+                  )
+                }),
+              ],
+              2
             ),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group-middle" }, [
+              _vm._v("中分類"),
+            ]),
             _vm._v(" "),
             _c(
               "select",
-              _vm._l(_vm.selectedItem, function (item) {
-                return _vm.selectedItem
-                  ? _c("option", [
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedMiddle,
+                    expression: "selectedMiddle",
+                  },
+                ],
+                on: {
+                  change: [
+                    function ($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function (o) {
+                          return o.selected
+                        })
+                        .map(function (o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedMiddle = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.select_change_middle,
+                  ],
+                },
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("選択して下さい"),
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.selectMiddles, function (item) {
+                  return _c(
+                    "option",
+                    {
+                      key: item.middle_id,
+                      domProps: { value: item.middle_id },
+                    },
+                    [
                       _vm._v(
                         "\n                  " +
                           _vm._s(item.name) +
-                          "\n              "
+                          "\n            "
                       ),
-                    ])
-                  : _vm._e()
-              }),
-              0
+                    ]
+                  )
+                }),
+              ],
+              2
             ),
-          ]),
-        ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group-subcategory" }, [
+              _vm._v("小分類"),
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedSubcategory,
+                    expression: "selectedSubcategory",
+                  },
+                ],
+                on: {
+                  change: [
+                    function ($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function (o) {
+                          return o.selected
+                        })
+                        .map(function (o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedSubcategory = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.select_change_subcategory,
+                  ],
+                },
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("選択して下さい"),
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.selectSubcategorys, function (item) {
+                  return _c(
+                    "option",
+                    {
+                      key: item.subcategory_id,
+                      domProps: { value: item.subcategory_id },
+                    },
+                    [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(item.name) +
+                          "\n            "
+                      ),
+                    ]
+                  )
+                }),
+              ],
+              2
+            ),
+          ]
+        ),
         _vm._v(" "),
         _vm.isLogin
           ? _c("div", { staticClass: "navbar__item" }, [
@@ -6611,34 +6944,100 @@ var render = function () {
             : _vm._e(),
           _vm._v(" "),
           _c("table", { staticClass: "form-out" }, [
-            _c("tr", [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("td", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.writeForm.file_name,
-                      expression: "writeForm.file_name",
+            _c("div", [
+              _c("tr", [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.writeForm.file_name,
+                        expression: "writeForm.file_name",
+                      },
+                    ],
+                    staticClass: "form__item",
+                    attrs: { type: "text", size: "38", id: "write-name" },
+                    domProps: { value: _vm.writeForm.file_name },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.writeForm,
+                          "file_name",
+                          $event.target.value
+                        )
+                      },
                     },
-                  ],
-                  staticClass: "form__item",
-                  attrs: { type: "text", size: "38", id: "write-name" },
-                  domProps: { value: _vm.writeForm.file_name },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.writeForm, "file_name", $event.target.value)
-                    },
-                  },
-                }),
+                  }),
+                ]),
               ]),
               _vm._v(" "),
-              _vm._m(1),
+              _c("tr", [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.writeForm.productname_j,
+                        expression: "writeForm.productname_j",
+                      },
+                    ],
+                    staticClass: "form__item",
+                    attrs: { type: "text", size: "38", id: "write-name" },
+                    domProps: { value: _vm.writeForm.productname_j },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.writeForm,
+                          "productname_j",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.writeForm.price,
+                        expression: "writeForm.price",
+                      },
+                    ],
+                    staticClass: "form__item",
+                    attrs: { type: "text", size: "16", id: "write-name" },
+                    domProps: { value: _vm.writeForm.price },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.writeForm, "price", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm._m(3),
             ]),
           ]),
         ]
@@ -6660,13 +7059,27 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [
-      _c("div", { staticClass: "form__button" }, [
-        _c(
-          "button",
-          { staticClass: "button button--inverse", attrs: { type: "submit" } },
-          [_vm._v("投稿する")]
-        ),
-      ]),
+      _c("label", { attrs: { for: "write-name" } }, [_vm._v("商　品　名")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("label", { attrs: { for: "write-name" } }, [_vm._v("価　 格")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form__button" }, [
+      _c(
+        "button",
+        { staticClass: "button button--inverse", attrs: { type: "submit" } },
+        [_vm._v("投稿する")]
+      ),
     ])
   },
 ]

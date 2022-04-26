@@ -4,21 +4,30 @@
       アプローチの ちいさな写真館
     </RouterLink>
     <div class="navbar__menu">
-      <div>
-        <div class="item_select">
-            <select v-model="selectedKey" v-on:change="selected">
-                    <option v-for="(value, key) in items">
-                        {{ key }}
-                    </option>
-            </select>
            
-            <select>
-                <option v-if="selectedItem" v-for="item in selectedItem">
+        <div class="input-group"　style="display:inline-flex">
+            <div class="input-group-major">大分類</div>
+            <select v-model="selectedMajor" v-on:change="select_change_major">
+            　<option value="">選択して下さい</option>
+              <option v-for="item in selectMajors" :value="item.major_id" v-bind:major="item.major_id" :key="item.major_id" >
+                {{ item.name }}
+              </option>
+            </select>
+            <div class="input-group-middle">中分類</div>
+            <select v-model="selectedMiddle" v-on:change="select_change_middle">
+              <option value="">選択して下さい</option>
+              <option v-for="item in selectMiddles":value="item.middle_id" :key="item.middle_id">
                     {{ item.name }}
-                </option>
-            </select>  
-        </div>
-      </div>
+              </option>
+            </select>
+            <div class="input-group-subcategory">小分類</div>
+            <select v-model="selectedSubcategory" v-on:change="select_change_subcategory">
+              <option value="">選択して下さい</option>
+              <option v-for="item in selectSubcategorys":value="item.subcategory_id" :key="item.subcategory_id">
+                    {{ item.name }}
+              </option>
+            </select>        </div>     
+
       <div v-if="isLogin" class="navbar__item">
         <button class="button" @click="showForm = ! showForm">
           <i class="icon ion-md-add"></i>
@@ -42,48 +51,78 @@
 import PhotoForm from './PhotoForm.vue'
 export default {
   components: {
-    PhotoForm
+    PhotoForm,
   },
+  
   data () {
     return {
-      showForm: false,
+        selectMajors: [],
+        selectMiddles: [],
+        selectSubcategorys: [],
 
-      selectedKey: '全て表示',
-      selectedItem: { '全て表示':{ name: '全て' }},
-     
-      items: {
-        全て表示: [
-              { name: '全て' },
-          ],
-          ユニフォーム: [
-              { id: '2222', name: '野　球' },
-              { id: '2222', name: 'サッカー' },
-              { id: '2222', name: 'フットサル' },
-              { id: '2222', name: 'マラソン' },
-              { id: '2222', name: 'バレーボール' },
-          ],
-          その他: [
-              { id: '2222', name: 'マスク' },
-              { id: '2222', name: 'タオル' },
-              { id: '2222', name: '抱き枕' },
-              { id: '2222', name: 'クッション' },
-              { id: '2222', name: 'Fit' },
-          ],
-      }
+        selectedMajor: '',
+        selectedMiddle: '',
+        selectedSubcategory: '',
+
+        showForm: false,
     }
   },
+  
   methods:{
-      selected: function(){
-          this.selectedItem = this.items[this.selectedKey];
+
+      async select_change_major() {  
+        await this.$store.dispatch('auth/majorchange', this.selectedMajor)
+      },
+
+      async select_change_middle() {
+          await this.$store.dispatch('auth/middlechange', this.selectedMiddle)
+      },
+
+      async select_change_subcategory() {
+          await this.$store.dispatch('auth/subcategorychange', this.selectedSubcategory)
+      },
+
+      async ajaxGetMajorList() {
+            await axios.get(`./api/majorclass`).then((res) => {
+                this.selectMajors = res.data
+            });
+      },
+
+      async ajaxGetMiddleList() {
+          await axios.get(`./api/middleclass/${this.selectedMajor}`).then((res) => {
+              this.selectMiddles = res.data
+          });
+      },
+
+      async ajaxGetSubcategoryList() {
+          await axios.get(`./api/subcategoryclass/${this.selectedMajor}/${this.selectedMiddle}`).then((res) => {
+              this.selectSubcategorys = res.data
+          });
+      },
+
+  },
+
+  computed: {
+      isLogin () {
+          return this.$store.getters['auth/check']
+      },
+      username () {
+          return this.$store.getters['auth/username']
       }
   },
-  computed: {
-    isLogin () {
-      return this.$store.getters['auth/check']
-    },
-    username () {
-      return this.$store.getters['auth/username']
-    }
-  }
+
+  mounted() {
+      this.ajaxGetMajorList()
+  },
+
+  watch: {
+      selectedMajor() {
+          this.ajaxGetMiddleList()
+      },
+      
+      selectedMiddle() {
+          this.ajaxGetSubcategoryList()
+      },    
+  },
 }
 </script>
