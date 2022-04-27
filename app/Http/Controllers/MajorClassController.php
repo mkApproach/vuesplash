@@ -14,18 +14,20 @@ use App\Http\Requests\StoreComment;
 
 use Illuminate\Support\Facades\Log;
 
-class MajorClassController extends Controller
+
+class MajorclassController extends Controller
 {
     /**
      * 大分類　一覧
      */
     public function index()
     {
-//        LOG::debug('');
+        LOG::debug('MajorclassController');
 
         $majorclasses = Majorclass::all();
 
 
         return $majorclasses;
     }
+
 }

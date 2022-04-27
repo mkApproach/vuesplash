@@ -2362,6 +2362,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2447,6 +2448,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context4.next = 2;
                 return axios.get("./api/majorclass").then(function (res) {
                   _this4.selectMajors = res.data;
+                })["catch"](function (error) {
+                  _this4.selectMajors = [];
                 });
 
               case 2:
@@ -2468,6 +2471,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context5.next = 2;
                 return axios.get("./api/middleclass/".concat(_this5.selectedMajor)).then(function (res) {
                   _this5.selectMiddles = res.data;
+                })["catch"](function (error) {
+                  _this5.selectMiddles = [];
                 });
 
               case 2:
@@ -2489,6 +2494,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context6.next = 2;
                 return axios.get("./api/subcategoryclass/".concat(_this6.selectedMajor, "/").concat(_this6.selectedMiddle)).then(function (res) {
                   _this6.selectSubcategorys = res.data;
+                })["catch"](function (error) {
+                  _this6.selectSubcategorys = [];
                 });
 
               case 2:
@@ -2513,10 +2520,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     selectedMajor: function selectedMajor() {
-      this.ajaxGetMiddleList();
+      var _this7 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return _this7.ajaxGetMiddleList();
+
+              case 2:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
     },
     selectedMiddle: function selectedMiddle() {
-      this.ajaxGetSubcategoryList();
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return _this8.ajaxGetSubcategoryList();
+
+              case 2:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }))();
     }
   }
 });
@@ -3445,7 +3484,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       photos: [],
       currentPage: 0,
-      lastPage: 0
+      lastPage: 0,
+      major_id: '*',
+      middle_id: '*',
+      subcategory_id: '*'
     };
   },
   methods: {
@@ -3459,7 +3501,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("./api/photos/?page=".concat(_this.page));
+                return axios.get("./api/photos/?page=".concat(_this.page, "&major_id=").concat(_this.major_id, "&middle_id=").concat(_this.middle_id, "&subcategory_id=").concat(_this.subcategory_id));
 
               case 2:
                 response = _context.sent;
@@ -3489,6 +3531,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onLikeClick: function onLikeClick(_ref) {
       var id = _ref.id,
           liked = _ref.liked;
+      console.log(this.selectedMajorid);
 
       if (!this.$store.getters['auth/check']) {
         alert('いいね機能を使うにはログインしてください。');
@@ -3623,11 +3666,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 6:
                 console.log(id);
 
-                _this4.$router.push("./$"); // this.photos = this.photos.map(photo => {
-                //   if (photo.id === response.data.photo_id) {
-                //   }
-                // })
-
+                _this4.$router.push("./$");
 
               case 8:
               case "end":
@@ -3638,25 +3677,93 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     }
   },
+  computed: {
+    foo_major: function foo_major() {
+      return this.major_id = this.$store.getters['auth/selectedMajorid'];
+    },
+    foo_middle: function foo_middle() {
+      return this.middle_id = this.$store.getters['auth/selectedMiddleid'];
+    },
+    foo_subcategory: function foo_subcategory() {
+      return this.subcategory_id = this.$store.getters['auth/selectedSubcategoryid'];
+    }
+  },
   watch: {
+    foo_major: function foo_major(val, old) {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return _this5.fetchPhotos();
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    foo_middle: function foo_middle(val, old) {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return _this6.fetchPhotos();
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    foo_subcategory: function foo_subcategory(val, old) {
+      var _this7 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return _this7.fetchPhotos();
+
+              case 2:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
+    },
     $route: {
       handler: function handler() {
-        var _this5 = this;
+        var _this8 = this;
 
-        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
             while (1) {
-              switch (_context5.prev = _context5.next) {
+              switch (_context8.prev = _context8.next) {
                 case 0:
-                  _context5.next = 2;
-                  return _this5.fetchPhotos();
+                  _context8.next = 2;
+                  return _this8.fetchPhotos();
 
                 case 2:
                 case "end":
-                  return _context5.stop();
+                  return _context8.stop();
               }
             }
-          }, _callee5);
+          }, _callee8);
         }))();
       },
       immediate: true
@@ -3959,9 +4066,9 @@ var state = {
   apiStatus: null,
   loginErrorMessages: null,
   registerErrorMessages: null,
-  selectedMajor: null,
-  selectedMiddle: null,
-  selectedSubcategory: null
+  selectedMajor: '*',
+  selectedMiddle: '*',
+  selectedSubcategory: '*'
 };
 var getters = {
   check: function check(state) {

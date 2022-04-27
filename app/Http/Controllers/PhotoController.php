@@ -48,10 +48,7 @@ class PhotoController extends Controller
         $photo->subcategory_id = $request->subcategoryid;
         $photo->productname_j = $request->jphoto;
         $photo->price = $request->price;
-
-
-        //??? $photo->filename = $photo->id . '.' . $extension;
-        
+   
         // storage/app/public配下に保存する
         //Storage::putFileAs('photos', $photo->filename, 'public');
         $request->photo->storeAs('photos', $photo->filename, 'public');
@@ -80,10 +77,36 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        $photos = Photo::with(['owner', 'likes'])
-        ->orderBy(Photo::CREATED_AT, 'desc')->paginate();
+        $major_id = $_GET['major_id'];
+        $middle_id = $_GET['middle_id'];
+        $subcategory_id = $_GET['subcategory_id'];
 
+        LOG::debug($subcategory_id);
 
+    
+        if ($major_id != '*') {
+            if ($middle_id != '*') {
+                if ($subcategory_id != '*') {                        // 全て選択
+                    $photos = Photo::with(['owner', 'likes'])
+                    ->where('major_id', $major_id)
+                    ->where('middle_id', $middle_id)
+                    ->where('subcategory_id', $subcategory_id)
+                    ->orderBy(Photo::CREATED_AT, 'desc')->paginate();   
+                } else {                                            // 大分類・中分類
+                    $photos = Photo::with(['owner', 'likes'])
+                    ->where('major_id', $major_id)
+                    ->where('middle_id', $middle_id)
+                    ->orderBy(Photo::CREATED_AT, 'desc')->paginate();  
+                } 
+            }  else {                                               // 大分類
+                $photos = Photo::with(['owner', 'likes'])->where('major_id', $major_id)
+                ->orderBy(Photo::CREATED_AT, 'desc')->paginate();   
+            } 
+        } else {
+            $photos = Photo::with(['owner', 'likes'])
+            ->orderBy(Photo::CREATED_AT, 'desc')->paginate();    
+        }
+  
         return $photos;
     }
 

@@ -5,9 +5,9 @@ const state = {
   apiStatus: null,
   loginErrorMessages: null,
   registerErrorMessages: null,
-  selectedMajor: null,
-  selectedMiddle: null,
-  selectedSubcategory: null,
+  selectedMajor: '*',
+  selectedMiddle: '*',
+  selectedSubcategory: '*',
 }
 
 const getters = {

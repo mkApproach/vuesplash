@@ -39,16 +39,23 @@ export default {
     }
   },
   data () {
-    return {
-      photos: [],
-      currentPage: 0,
-      lastPage: 0
-    }
+      return {
+          photos: [],
+          currentPage: 0,
+          lastPage: 0,
+          major_id: '*',
+          middle_id: '*',
+          subcategory_id: '*',
+      }
   },
   methods: {
+
     async fetchPhotos () {
-      const response = await axios.get(`./api/photos/?page=${this.page}`)
+     
+      const response = 
+          await axios.get(`./api/photos/?page=${this.page}&major_id=${this.major_id}&middle_id=${this.middle_id}&subcategory_id=${this.subcategory_id}`)
       if (response.status !== OK) {
+        
         this.$store.commit('error/setCode', response.status)
         return false
       }
@@ -57,6 +64,10 @@ export default {
       this.lastPage = response.data.last_page
     },
     onLikeClick ({ id, liked }) {
+
+
+      console.log(this.selectedMajorid)
+
       if (! this.$store.getters['auth/check']) {
         alert('いいね機能を使うにはログインしてください。')
         return false
@@ -112,17 +123,34 @@ export default {
    
       this.$router.push(`./$`)
  
-      // this.photos = this.photos.map(photo => {
-      //   if (photo.id === response.data.photo_id) {
-      //   }
-      // })
     },
 
   },
+  computed: {
+      foo_major() {
+          return this.major_id = this.$store.getters['auth/selectedMajorid']; 
+      },
+      foo_middle() {
+          return this.middle_id = this.$store.getters['auth/selectedMiddleid']; 
+      },
+      foo_subcategory () {
+          return this.subcategory_id = this.$store.getters['auth/selectedSubcategoryid']; 
+      },
+  },
   watch: {
+    async foo_major (val, old) {
+         await this.fetchPhotos()
+    },
+    async foo_middle (val, old) {
+         await this.fetchPhotos()
+    },
+    async foo_subcategory (val, old) {
+         await this.fetchPhotos()
+    },
     $route: {
       async handler () {
-        await this.fetchPhotos()
+//???          this.major_id = this.$store.getters['auth/selectedMajorid'] 
+          await this.fetchPhotos()
       },
       immediate: true
     }

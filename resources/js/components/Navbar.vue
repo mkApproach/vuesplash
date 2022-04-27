@@ -26,7 +26,8 @@
               <option v-for="item in selectSubcategorys":value="item.subcategory_id" :key="item.subcategory_id">
                     {{ item.name }}
               </option>
-            </select>        </div>     
+            </select>        
+        </div>     
 
       <div v-if="isLogin" class="navbar__item">
         <button class="button" @click="showForm = ! showForm">
@@ -83,21 +84,32 @@ export default {
       },
 
       async ajaxGetMajorList() {
-            await axios.get(`./api/majorclass`).then((res) => {
-                this.selectMajors = res.data
-            });
+          await axios.get(`./api/majorclass`).then((res) => {
+              this.selectMajors = res.data
+          })
+          .catch((error) => {
+              this.selectMajors = []
+          });
       },
 
       async ajaxGetMiddleList() {
-          await axios.get(`./api/middleclass/${this.selectedMajor}`).then((res) => {
-              this.selectMiddles = res.data
-          });
+          await axios.get(`./api/middleclass/${this.selectedMajor}`)
+              .then((res) => { 
+                  this.selectMiddles = res.data
+              })
+              .catch((error) => {
+                  this.selectMiddles = []
+              });
       },
 
       async ajaxGetSubcategoryList() {
-          await axios.get(`./api/subcategoryclass/${this.selectedMajor}/${this.selectedMiddle}`).then((res) => {
-              this.selectSubcategorys = res.data
-          });
+          await axios.get(`./api/subcategoryclass/${this.selectedMajor}/${this.selectedMiddle}`)
+              .then((res) => {
+                  this.selectSubcategorys = res.data
+              })
+              .catch((error) => {
+                  this.selectSubcategorys = []
+              });
       },
 
   },
@@ -116,12 +128,13 @@ export default {
   },
 
   watch: {
-      selectedMajor() {
-          this.ajaxGetMiddleList()
+      async selectedMajor() {
+          await this.ajaxGetMiddleList()
+//          await this.ajaxGetSubcategoryList()
       },
       
-      selectedMiddle() {
-          this.ajaxGetSubcategoryList()
+      async selectedMiddle() {
+          await this.ajaxGetSubcategoryList()
       },    
   },
 }
