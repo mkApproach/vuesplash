@@ -19,7 +19,7 @@ class Photo extends Model
         'middle_id',          // 中分類ID
         'subcategory_id',     // 小分類ID
         'productname_j',      // 商品名（日本語）
-        'price' => 0,        // 価格 -2147483647 〜 2147483647 まで
+        'price' => 0,         // 価格 -2147483647 〜 2147483647 まで
     ];
 
     /** プライマリキーの型 */
@@ -27,7 +27,7 @@ class Photo extends Model
 
     /** JSONに含める属性 */
     protected $visible = [
-        'id', 'owner', 'url', 'comments', 'likes_count', 'liked_by_user',
+        'id', 'owner', 'url', 'url2', 'comments', 'likes_count', 'liked_by_user', 'productname_j', 'price',
     ];
 
     /** JSONに含める属性 */
@@ -80,7 +80,6 @@ class Photo extends Model
         return $id;
     }
 
-    
     /**
      * アクセサ - url
      * @return string

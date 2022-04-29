@@ -8,21 +8,21 @@
         <div class="input-group"　style="display:inline-flex">
             <div class="input-group-major">大分類</div>
             <select v-model="selectedMajor" v-on:change="select_change_major">
-            　<option value="">選択して下さい</option>
+<!--            　<option value="">選択して下さい</option>  -->
               <option v-for="item in selectMajors" :value="item.major_id" v-bind:major="item.major_id" :key="item.major_id" >
                 {{ item.name }}
               </option>
             </select>
             <div class="input-group-middle">中分類</div>
             <select v-model="selectedMiddle" v-on:change="select_change_middle">
-              <option value="">選択して下さい</option>
+<!--               <option value="">選択して下さい</option>  -->
               <option v-for="item in selectMiddles":value="item.middle_id" :key="item.middle_id">
                     {{ item.name }}
               </option>
             </select>
             <div class="input-group-subcategory">小分類</div>
             <select v-model="selectedSubcategory" v-on:change="select_change_subcategory">
-              <option value="">選択して下さい</option>
+<!--               <option value="">選択して下さい</option>  -->
               <option v-for="item in selectSubcategorys":value="item.subcategory_id" :key="item.subcategory_id">
                     {{ item.name }}
               </option>
@@ -61,9 +61,9 @@ export default {
         selectMiddles: [],
         selectSubcategorys: [],
 
-        selectedMajor: '',
-        selectedMiddle: '',
-        selectedSubcategory: '',
+        selectedMajor: '*',
+        selectedMiddle: '*',
+        selectedSubcategory: '*',
 
         showForm: false,
     }
@@ -72,11 +72,16 @@ export default {
   methods:{
 
       async select_change_major() {  
-        await this.$store.dispatch('auth/majorchange', this.selectedMajor)
-      },
+          this.selectedMiddle = '*'
+          this.selectedSubcategory = '*'
+          await this.$store.dispatch('auth/majorchange', this.selectedMajor)
+          await this.$store.dispatch('auth/middlechange', this.selectedMiddle)
+          await this.$store.dispatch('auth/subcategorychange', this.selectedSubcategory)
+       },
 
       async select_change_middle() {
           await this.$store.dispatch('auth/middlechange', this.selectedMiddle)
+          await this.$store.dispatch('auth/subcategorychange', this.selectedSubcategory)
       },
 
       async select_change_subcategory() {
@@ -130,7 +135,7 @@ export default {
   watch: {
       async selectedMajor() {
           await this.ajaxGetMiddleList()
-//          await this.ajaxGetSubcategoryList()
+          await this.ajaxGetSubcategoryList()
       },
       
       async selectedMiddle() {

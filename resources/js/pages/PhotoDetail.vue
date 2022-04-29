@@ -1,23 +1,17 @@
 <template>
-  <div
-    v-if="photo"
-    class="photo-detail"
-    :class="{ 'photo-detail--column': fullWidth }"
-  >
-    <figure
-      class="photo-detail__pane photo-detail__image"
-      @click="fullWidth = ! fullWidth"
-    >
+  <div v-if="photo" class="photo-detail" :class="{ 'photo-detail--column': fullWidth }">
+    
+    <figure class="photo-detail__pane photo-detail__image" @click="fullWidth = ! fullWidth">
       <img :src="photo.url" alt="">
-      <figcaption>Posted by {{ photo.owner.name }}</figcaption>
-    </figure>
+      
+      <figcaption><h3>{{ photo.productname_j }}       ¥{{ photo.price.toLocaleString() }}</h3></figcaption>
+<!--      <figcaption><h3>{{ photo.productname_j }} ¥{{ photo.price.toLocaleString() }}</h3> Posted by {{ photo.owner.name }} </figcaption> -->
+      </figure>
+      
+
     <div class="photo-detail__pane">
-      <button
-        class="button button--like"
-        :class="{ 'button--liked': photo.liked_by_user }"
-        title="評価する"
-        @click="onLikeClick"
-      >
+      <button class="button button--like" :class="{ 'button--liked': photo.liked_by_user }"
+        title="評価する" @click="onLikeClick">
         <i class="icon ion-md-heart"></i>{{ photo.likes_count }}
       </button>
       <a
@@ -90,6 +84,7 @@ export default {
         return false
       }
       this.photo = response.data
+      console.log(this.photo)
     },
     async addComment () {
       const response = await axios.post(`./api/photos/${this.id}/comments`, {

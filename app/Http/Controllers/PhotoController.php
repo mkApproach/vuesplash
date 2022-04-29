@@ -81,9 +81,11 @@ class PhotoController extends Controller
         $middle_id = $_GET['middle_id'];
         $subcategory_id = $_GET['subcategory_id'];
 
+        LOG::debug('写真検索');
+        LOG::debug($major_id);
+        LOG::debug($middle_id);
         LOG::debug($subcategory_id);
 
-    
         if ($major_id != '*') {
             if ($middle_id != '*') {
                 if ($subcategory_id != '*') {                        // 全て選択

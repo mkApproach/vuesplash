@@ -2373,9 +2373,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selectMajors: [],
       selectMiddles: [],
       selectSubcategorys: [],
-      selectedMajor: '',
-      selectedMiddle: '',
-      selectedSubcategory: '',
+      selectedMajor: '*',
+      selectedMiddle: '*',
+      selectedSubcategory: '*',
       showForm: false
     };
   },
@@ -2388,10 +2388,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _this.selectedMiddle = '*';
+                _this.selectedSubcategory = '*';
+                _context.next = 4;
                 return _this.$store.dispatch('auth/majorchange', _this.selectedMajor);
 
-              case 2:
+              case 4:
+                _context.next = 6;
+                return _this.$store.dispatch('auth/middlechange', _this.selectedMiddle);
+
+              case 6:
+                _context.next = 8;
+                return _this.$store.dispatch('auth/subcategorychange', _this.selectedSubcategory);
+
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -2411,6 +2421,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this2.$store.dispatch('auth/middlechange', _this2.selectedMiddle);
 
               case 2:
+                _context2.next = 4;
+                return _this2.$store.dispatch('auth/subcategorychange', _this2.selectedSubcategory);
+
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2531,6 +2545,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this7.ajaxGetMiddleList();
 
               case 2:
+                _context7.next = 4;
+                return _this7.ajaxGetSubcategoryList();
+
+              case 4:
               case "end":
                 return _context7.stop();
             }
@@ -3193,12 +3211,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -3247,8 +3259,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _this.photo = response.data;
+                console.log(_this.photo);
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -6543,7 +6556,7 @@ var render = function () {
     { staticClass: "navbar" },
     [
       _c("RouterLink", { staticClass: "navbar__brand", attrs: { to: "/" } }, [
-        _vm._v("\n    アプローチの ちいさな写真館\n  "),
+        _vm._v("\n      アプローチの ちいさな写真館\n    "),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "navbar__menu" }, [
@@ -6586,30 +6599,24 @@ var render = function () {
                   ],
                 },
               },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v("選択して下さい"),
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.selectMajors, function (item) {
-                  return _c(
-                    "option",
-                    {
-                      key: item.major_id,
-                      attrs: { major: item.major_id },
-                      domProps: { value: item.major_id },
-                    },
-                    [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(item.name) +
-                          "\n            "
-                      ),
-                    ]
-                  )
-                }),
-              ],
-              2
+              _vm._l(_vm.selectMajors, function (item) {
+                return _c(
+                  "option",
+                  {
+                    key: item.major_id,
+                    attrs: { major: item.major_id },
+                    domProps: { value: item.major_id },
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(item.name) +
+                        "\n              "
+                    ),
+                  ]
+                )
+              }),
+              0
             ),
             _vm._v(" "),
             _c("div", { staticClass: "input-group-middle" }, [
@@ -6646,29 +6653,20 @@ var render = function () {
                   ],
                 },
               },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v("選択して下さい"),
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.selectMiddles, function (item) {
-                  return _c(
-                    "option",
-                    {
-                      key: item.middle_id,
-                      domProps: { value: item.middle_id },
-                    },
-                    [
-                      _vm._v(
-                        "\n                  " +
-                          _vm._s(item.name) +
-                          "\n            "
-                      ),
-                    ]
-                  )
-                }),
-              ],
-              2
+              _vm._l(_vm.selectMiddles, function (item) {
+                return _c(
+                  "option",
+                  { key: item.middle_id, domProps: { value: item.middle_id } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(item.name) +
+                        "\n              "
+                    ),
+                  ]
+                )
+              }),
+              0
             ),
             _vm._v(" "),
             _c("div", { staticClass: "input-group-subcategory" }, [
@@ -6705,29 +6703,23 @@ var render = function () {
                   ],
                 },
               },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v("選択して下さい"),
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.selectSubcategorys, function (item) {
-                  return _c(
-                    "option",
-                    {
-                      key: item.subcategory_id,
-                      domProps: { value: item.subcategory_id },
-                    },
-                    [
-                      _vm._v(
-                        "\n                  " +
-                          _vm._s(item.name) +
-                          "\n            "
-                      ),
-                    ]
-                  )
-                }),
-              ],
-              2
+              _vm._l(_vm.selectSubcategorys, function (item) {
+                return _c(
+                  "option",
+                  {
+                    key: item.subcategory_id,
+                    domProps: { value: item.subcategory_id },
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(item.name) +
+                        "\n              "
+                    ),
+                  ]
+                )
+              }),
+              0
             ),
           ]
         ),
@@ -6746,7 +6738,7 @@ var render = function () {
                 },
                 [
                   _c("i", { staticClass: "icon ion-md-add" }),
-                  _vm._v("\n        写真の投稿\n      "),
+                  _vm._v("\n          写真の投稿\n        "),
                 ]
               ),
             ])
@@ -6754,7 +6746,7 @@ var render = function () {
         _vm._v(" "),
         _vm.isLogin
           ? _c("span", { staticClass: "navbar__item" }, [
-              _vm._v("\n      " + _vm._s(_vm.username) + "\n    "),
+              _vm._v("\n        " + _vm._s(_vm.username) + "\n      "),
             ])
           : _c(
               "div",
@@ -6766,7 +6758,7 @@ var render = function () {
                     staticClass: "button button--link",
                     attrs: { to: "/login" },
                   },
-                  [_vm._v("\n        ログイン / 登録\n      ")]
+                  [_vm._v("\n          ログイン / 登録\n        ")]
                 ),
               ],
               1
@@ -7590,7 +7582,13 @@ var render = function () {
               _c("img", { attrs: { src: _vm.photo.url, alt: "" } }),
               _vm._v(" "),
               _c("figcaption", [
-                _vm._v("Posted by " + _vm._s(_vm.photo.owner.name)),
+                _c("h3", [
+                  _vm._v(
+                    _vm._s(_vm.photo.productname_j) +
+                      "       ¥" +
+                      _vm._s(_vm.photo.price.toLocaleString())
+                  ),
+                ]),
               ]),
             ]
           ),
@@ -7606,7 +7604,7 @@ var render = function () {
               },
               [
                 _c("i", { staticClass: "icon ion-md-heart" }),
-                _vm._v(_vm._s(_vm.photo.likes_count) + "\n    "),
+                _vm._v(_vm._s(_vm.photo.likes_count) + "\n      "),
               ]
             ),
             _vm._v(" "),
@@ -7621,7 +7619,7 @@ var render = function () {
               },
               [
                 _c("i", { staticClass: "icon ion-md-arrow-round-down" }),
-                _vm._v("Download\n    "),
+                _vm._v("Download\n      "),
               ]
             ),
             _vm._v(" "),
@@ -7641,17 +7639,17 @@ var render = function () {
                       [
                         _c("p", { staticClass: "photo-detail__commentBody" }, [
                           _vm._v(
-                            "\n          " +
+                            "\n            " +
                               _vm._s(comment.content) +
-                              "\n        "
+                              "\n          "
                           ),
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "photo-detail__commentInfo" }, [
                           _vm._v(
-                            "\n          " +
+                            "\n            " +
                               _vm._s(comment.author.name) +
-                              "\n        "
+                              "\n          "
                           ),
                         ]),
                       ]
@@ -7730,7 +7728,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("h2", { staticClass: "photo-detail__title" }, [
       _c("i", { staticClass: "icon ion-md-chatboxes" }),
-      _vm._v("コメント\n    "),
+      _vm._v("コメント\n      "),
     ])
   },
   function () {
